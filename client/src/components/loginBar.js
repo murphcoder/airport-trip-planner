@@ -5,7 +5,7 @@ const LoginBar = () => {
   return (
     <div>
       <NavLink to='/login'>Log In</NavLink>
-      <br></br>
+      <br />
       <NavLink to='/signup'>Sign Up</NavLink>
     </div>
   );

@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import loginUser from '../actions/loginUser';
+import { connect } from 'react-redux';
+import { loginUser } from '../actions/sessionsActions';
+import { URL } from '../App';
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            username: '',
             email: '',
-            password: '',
-            errors: ''
+            password: ''
         };
     }
 
@@ -20,72 +19,56 @@ class Login extends Component {
         })
     };
 
-    componentDidMount() {
-        if (this.state.isLoggedIn) {
+    componentDidUpdate() {
+        console.log(this.props.sessions.loggedIn)
+        if (this.props.sessions.loggedIn) {
             this.props.history.push('/')
         }
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const {username, email, password} = this.state;
-        let user = {
-            username: username,
-            email: email,
-            password: password
-        };
-        loginUser(user, this.props.url);
-    };
-
-    showErrors = () => {
-        return (
-            <div>
-                <h3>Errors</h3>
-                <ul>
-                    {this.state.errors.map(error => <li>{error}</li>)}
-                </ul>
-            </div>
-        )
+        this.props.loginUser(this.state, URL)
     };
 
     render() {
-        const {username, email, password} = this.state
         return (
         <div>
-            <h1>Log In</h1>  
-            {!!this.state.errors ? this.showErrors() : null}      
+            <h1>Log In</h1>   
                 <form onSubmit={this.handleSubmit}>
-                    <input
-                        placeholder="username"
-                        type="text"
-                        name="username"
-                        value={username}
-                        onChange={this.handleChange}
-                    />
-                    <input
+                    <p><input
                         placeholder="email"
                         type="text"
                         name="email"
-                        value={email}
+                        value={this.state.email}
                         onChange={this.handleChange}
-                    />
-                    <input
+                    /></p>
+                    <p><input
                         placeholder="password"
                         type="password"
                         name="password"
-                        value={password}
+                        value={this.state.password}
                         onChange={this.handleChange}
-                    />         
+                    /></p>         
                     <button placeholder="submit" type="submit">
                         Log In
-                    </button>          
-                    <div>
-                        or <Link to='/signup'>Sign Up</Link>
-                    </div>
+                    </button>
                 </form>
             </div>
         );
     }
-}
+};
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+      sessions: state.sessions
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+      loginUser: (user, url) => dispatch(loginUser(user, url))
+    }
+};
+
+export default connect (mapStateToProps, mapDispatchToProps)(Login);

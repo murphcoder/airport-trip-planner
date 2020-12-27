@@ -22,10 +22,27 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         if @user.save
             login!  
-            render json: {status: :created, user: @user}
+            render json: {status: 'created', user: @user}
         else 
             render json: {status: 500, errors: @user.errors.full_messages}
         end
-     end
+    end
+
+    def destroy
+        @user = User.find(params[:id])
+        if @user
+            logout!
+            @user.destroy
+            render json: {status: 'deleted'}
+        else
+            render json: {status: 500, errors: @user.errors.full_messages}
+        end
+    end
+
+    private
+
+    def user_params
+        params.require(:user).permit(:email, :password, :password_confirmation)
+    end
 
 end
