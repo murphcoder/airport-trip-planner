@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from '../actions/sessionsActions';
-import { URL } from '../App';
+import {URL} from '../App';
 
 class Login extends Component {
     constructor(props) {
@@ -10,20 +10,19 @@ class Login extends Component {
             email: '',
             password: ''
         };
-    }
+    };
+
+    componentDidUpdate() {
+        if (this.props.sessions.loggedIn) {
+            this.props.history.push('/')
+        }
+    };
 
     handleChange = (event) => {
         const {name, value} = event.target
         this.setState({
             [name]: value
         })
-    };
-
-    componentDidUpdate() {
-        console.log(this.props.sessions.loggedIn)
-        if (this.props.sessions.loggedIn) {
-            this.props.history.push('/')
-        }
     };
 
     handleSubmit = (event) => {
@@ -33,7 +32,7 @@ class Login extends Component {
 
     render() {
         return (
-        <div>
+        <div className="main">
             <h1>Log In</h1>   
                 <form onSubmit={this.handleSubmit}>
                     <p><input
@@ -64,11 +63,11 @@ const mapStateToProps = state => {
       sessions: state.sessions
     }
 };
-
+  
 const mapDispatchToProps = dispatch => {
     return {
-      loginUser: (user, url) => dispatch(loginUser(user, url))
+        loginUser: (user, url) => dispatch(loginUser(user, url))
     }
 };
-
-export default connect (mapStateToProps, mapDispatchToProps)(Login);
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { signupUser } from '../actions/userActions';
 import { connect } from 'react-redux';
-import { URL } from '../App';
+import { signupUser } from '../actions/userActions';
+import {URL} from '../App';
 
 class Signup extends Component {
     constructor(props) {
@@ -11,19 +11,19 @@ class Signup extends Component {
             password: '',
             password_confirmation: ''
         };
-    }
+    };
+
+    componentDidUpdate() {
+        if (this.props.sessions.loggedIn) {
+            this.props.history.push('/')
+        }
+    };
 
     handleChange = (event) => {
         const {name, value} = event.target
         this.setState({
             [name]: value
         })
-    };
-
-    componentDidMount() {
-        if (this.props.sessions.loggedIn) {
-            this.props.history.push('/')
-        }
     };
 
     handleSubmit = (event) => {
@@ -34,7 +34,7 @@ class Signup extends Component {
     render() {
         const {email, password, password_confirmation} = this.state;
         return (
-            <div>
+            <div className="main">
                 <h1>Sign Up</h1>      
                 <form onSubmit={this.handleSubmit}>
                     <p><input
@@ -73,11 +73,11 @@ const mapStateToProps = state => {
       sessions: state.sessions
     }
 };
-
+  
 const mapDispatchToProps = dispatch => {
     return {
-      signupUser: (user, url) => dispatch(signupUser(user, url))
+        signupUser: (user, url) => dispatch(signupUser(user, url))
     }
 };
-
-export default connect (mapStateToProps, mapDispatchToProps)(Signup);
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

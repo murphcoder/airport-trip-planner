@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   post '/logout',   to: 'sessions#destroy'
   get '/logged_in', to: 'sessions#is_logged_in?'
 
-  resources :users, only: [:create, :show, :index]
+  resources :users, only: [:create, :update, :show, :destroy] do
+    resources :trips, only: [:index, :show, :create, :update, :destroy]
+  end
 
 end

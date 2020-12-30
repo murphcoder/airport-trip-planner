@@ -33,10 +33,33 @@ export function deleteUser(user, url) {
             body: ''
         };
         dispatch({ type: "LOADING_USER_STATUS" });
-        fetch(`${url}/user/${user.id}`, configObj)
+        fetch(`${url}/users/${user.id}`, configObj)
         .then(resp => resp.json())
         .then(info => {if (info.status === 'deleted') {
             dispatch({type: 'LOGOUT_USER'})
+        } else {
+            dispatch({type: 'LOG_ERROR', errors: info.user.errors})
+        }})
+        .catch(error => console.log('api errors:', error))
+    }
+};
+
+export function updateUser(user, url) {
+    return (dispatch) => {
+        let configObj = {
+            method: "PUT",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({user: user})
+        };
+        dispatch({ type: "LOADING_USER_STATUS" });
+        fetch(`${url}/users/${user.id}`, configObj)
+        .then(resp => resp.json())
+        .then(info => {if (info.status === 'updated') {
+            dispatch({type: 'LOGIN_USER', user: info.user})
         } else {
             dispatch({type: 'LOG_ERROR', errors: info.user.errors})
         }})

@@ -39,18 +39,18 @@ export function loginUser(user, url) {
 export function logoutUser(url) {
     return (dispatch) => {
         let configObj = {
-            method: "DELETE",
+            method: "POST",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify()
+            body: ''
         };
         dispatch({ type: 'LOADING_USER_STATUS'});
         fetch(`${url}/logout`, configObj)
         .then(resp => resp.json())
-        .then(info => {if (info.data.logged_in) {
+        .then(info => {if (!info.logged_in) {
             dispatch({type: 'LOGOUT_USER'})
         } else {
             dispatch({type: 'LOG_ERROR', errors: info.user.errors})

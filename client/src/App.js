@@ -1,30 +1,30 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Login from './components/login';
 import Signup from './components/signup';
-import LoginBar from './components/loginBar';
-import Start from './containers/Start';
-import { getUserStatus } from './actions/sessionsActions';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import './App.css';
+import NavBar from './containers/navBar';
+import TripContainer from './containers/TripContainer';
+import TripLoader from './containers/TripLoader';
+import TripInput from './components/TripInput';
+import UserSettings from './components/UserSettings';
+import Home from './components/Home';
 
 export const URL = 'http://localhost:3001';
 
 class App extends React.Component {
 
-  componentDidMount() {
-    this.props.getUserStatus(URL)
-  };
-
   render() {
     return (
       <div>
          <BrowserRouter>
-         {console.log(this.props)}
-         {this.props.sessions.loggedIn ? <Start /> : <LoginBar />}
+          <NavBar />
           <Switch>
-            <Route exact path='/' />
-            <Route exact path='/home' component={App} />
+            <Route exact path='/' component={Home} />
+            <Route exact path='/settings' component={UserSettings} />
+            <Route exact path='/trips/new' component={TripInput} />
+            <Route exact path='/trips' component={TripContainer} />
+            <Route exact path='/trips/new' component={TripLoader} />
+            <Route exact path='/trips/:tripId' component={TripLoader} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
           </Switch>
@@ -35,16 +35,4 @@ class App extends React.Component {
 
 };
 
-const mapStateToProps = state => {
-  return {
-    sessions: state.sessions
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    getUserStatus: (url) => dispatch(getUserStatus(url))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App;

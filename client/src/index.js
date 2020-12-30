@@ -5,12 +5,12 @@ import App from './App';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import sessionsReducer from './reducers/sessionsReducer';
-import userReducer from './reducers/userReducer';
+import tripsReducer from './reducers/tripsReducer'
 import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
   sessions: sessionsReducer,
-  userStatus: userReducer
+  trips: tripsReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
