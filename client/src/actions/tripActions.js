@@ -14,7 +14,7 @@ export function getTripData(trip) {
         };
         fetch(`https://aerodatabox.p.rapidapi.com/flights/number/${trip.flightNumber}/${trip.departureDate}`, configObj)
         .then(resp => resp.json())
-        .then(flightData => (fetch(`http://open.mapquestapi.com/directions/v2/route?key=GQ9IAjrMjq3TgirjdQGfC8jxYBQMKGiB&from=${trip.address},${trip.city},${trip.state},${trip.zip}&to=${flightData[0].departure.airport.iata}+Airport`)
+        .then(flightData => (fetch(`http://open.mapquestapi.com/directions/v2/route?key=GQ9IAjrMjq3TgirjdQGfC8jxYBQMKGiB&from=${trip.address},${trip.city},${trip.state},${trip.zip}&to=${flightData[0].departure.airport.location.lat},${flightData[0].departure.airport.location.lon}`)
         .then(resp => resp.json())
         .then(drivingData => dispatch({type: 'UPDATED_TRIP', trip: trip, drivingData: drivingData, flightData: flightData}))));
     };

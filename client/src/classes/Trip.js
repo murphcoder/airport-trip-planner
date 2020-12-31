@@ -32,7 +32,7 @@ class Trip {
     };
 
     get departureTime() {
-        let dTime =  new Date(this.flightTime.getTime() + this.drivingTimeFormatted.getTime() + 7200000);
+        let dTime =  new Date(this.flightTime.getTime() - this.drivingTimeFormatted.getTime() - 7200000);
         return `${dTime.getHours()}:${dTime.getMinutes()}`
     };
 

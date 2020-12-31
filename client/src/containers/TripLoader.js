@@ -51,6 +51,7 @@ class TripLoader extends React.Component {
                     </div>
                 )
             } else {
+                console.log(this.state.trip);
                 return (
                     <h2 className="main">Loading...</h2>
                 )
