@@ -3,29 +3,48 @@ import { Redirect } from 'react-router-dom';
 
 class UserSettings extends React.Component {
     state = {
-        id: this.props.location.user.id,
-        email: this.props.location.user.email,
-        password: '',
-        password_confirmation: ''
+        user: {
+            id: this.props.location.user.id,
+            email: this.props.location.user.email,
+            password: '',
+            password_confirmation: ''
+        },
+        message: '',
+        redirect: false
     };
 
     handleUpdate = event => {
         event.preventDefault();
-        this.props.location.updateUser(this.state, this.props.location.url)
+        this.props.location.updateUser(this.state.user, this.props.location.url);
+        this.setState({
+            ...this.state,
+            message: 'User Updated.',
+            redirect: true
+        })
     };
 
     handleDelete = event => {
-        this.props.location.deleteUser(this.props.location.user, this.props.location.url)
+        this.props.location.deleteUser(this.props.location.user, this.props.location.url),
+        his.setState({
+            ...this.state,
+            message: 'User Deleted.',
+            redirect: true
+        })
     };
 
     handleChange = event => {
         this.setState({
-            [event.target.name]: event.target.value
+            user: {
+                ...this.state.user,
+                [event.target.name]: event.target.value
+            }
         })
     };
 
     render() {
-        if (this.props.location.loggedIn) {
+        if (this.state.redirect) {
+            return ( <Redirect to={{pathname: "/", message: this.state.message}} />)
+        } else if (this.props.location.loggedIn) {
             return (
                 <div className="main">
                     <h2>Change Your email address or password below.</h2>
