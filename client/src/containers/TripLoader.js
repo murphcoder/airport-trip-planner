@@ -70,12 +70,4 @@ const mapStateToProps = state => {
     }
 };
   
-const mapDispatchToProps = dispatch => {
-    return {
-        getTripData: (trip) => dispatch(getTripData(trip)),
-        saveTrip: (trip, user) => dispatch(saveTrip(trip, user)),
-        deleteTrip: (trip, user) => dispatch(deleteTrip(trip, user))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TripLoader)
+export default connect(mapStateToProps, {getTripData, saveTrip, deleteTrip})(TripLoader)

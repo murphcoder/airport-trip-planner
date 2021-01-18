@@ -24,8 +24,8 @@ class UserSettings extends React.Component {
     };
 
     handleDelete = event => {
-        this.props.location.deleteUser(this.props.location.user, this.props.location.url),
-        his.setState({
+        this.props.location.deleteUser(this.props.location.user, this.props.location.url);
+        this.setState({
             ...this.state,
             message: 'User Deleted.',
             redirect: true
