@@ -19,14 +19,6 @@ class App extends React.Component {
          <BrowserRouter>
           <NavBar />
           <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/settings' component={UserSettings} />
-            <Route exact path='/trips/new' component={TripInput} />
-            <Route exact path='/trips' component={TripContainer} />
-            <Route exact path='/trips/new' component={TripLoader} />
-            <Route exact path='/trips/:tripId' component={TripLoader} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/signup' component={Signup} />
           </Switch>
         </BrowserRouter>
       </div>
