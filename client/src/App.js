@@ -26,7 +26,6 @@ class App extends React.Component {
             <Route exact path='/trips/new' component={TripLoader} />
             <Route exact path='/trips/:tripId' component={TripLoader} />
             <Route exact path='/login' component={Login} />
-            <Route exact path='/signup' component={Signup} />
           </Switch>
         </BrowserRouter>
       </div>
