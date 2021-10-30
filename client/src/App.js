@@ -9,8 +9,7 @@ import TripInput from './components/TripInput';
 import UserSettings from './components/UserSettings';
 import Home from './components/Home';
 
-export const URL = 'https://https://airport-trip-planner.herokuapp.com/';
-
+export const URL = 'http://localhost:3001/';
 class App extends React.Component {
 
   render() {

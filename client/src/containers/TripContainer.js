@@ -12,11 +12,15 @@ class TripContainer extends React.Component {
         }
     };
 
+    saveTrips(trips, user) {
+        saveAllTrips(trips, user)
+    }
+
     render() {
         if (this.props.sessions.loggedIn) {
             return (
                 <div className="main">
-                    <TripList user={this.props.sessions.user} loggedIn={this.props.location.loggedIn} trips={this.props.trips.list} saveAllTrips={this.props.saveAllTrips} saveTrip={this.props.saveTrip} deleteTrip={this.props.deleteTrip} />
+                    <TripList user={this.props.sessions.user} loggedIn={this.props.location.loggedIn} trips={this.props.trips.list} saveAllTrips={this.saveTrips} saveTrip={this.props.saveTrip} deleteTrip={this.props.deleteTrip} />
                 </div>
             )
         } else {
